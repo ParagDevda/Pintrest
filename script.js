@@ -145,6 +145,59 @@ function addtocart(){
     
   }) 
 }
+function searchedoutput(){
+  var s = document.querySelector("#searchbar");
+  var o = document.querySelector("#output");
+  var c = document.querySelector("#close");
+  s.addEventListener("input", function(){
+      var ht = "";
+      var clutter = "";
+      var ind = "";
+      for(var i=0; i<arr.length; i++){
+          var name = arr[i].name ;
+          if(name == s.value) {
+              console.log(arr[i]); 
+              clutter = arr[i]; 
+              o.style.zIndex = "99";
+              o.style.display="block";
+          }
+      }
+      console.log(clutter);
+      ht = ` <div id="save"><div id="img">
+      <img src="${clutter.image}" alt=""></div>
+      <div id="details"><h3>"${clutter.name.toUpperCase()}"</h3>
+          <button class="add">save</button>
+      </div>
+      </div> ` 
+      document.querySelector("#searchedoutput").innerHTML = ht;
+      o.addEventListener("click",function(details){
+        if(details.target.classList.contains('add')){
+          alert("image saved");
+          cart.push(clutter);
+          console.log(cart);
+          var clutt = "";
+          cart.forEach(function (obj ,index) {
+            clutt += `<div id="save"><div id="img">
+                <img src="${obj.image}" alt=""></div>
+                <div id="details"><h3>"${obj.name.toUpperCase()}"</h3>
+                    <button data-index = "${index}" class="add">remove</button>
+                </div>
+                </div> `;})
+                console.log(clutt);
+                document.querySelector("#saved-image").innerHTML = clutt;
+        };
+        
+      })  
+
+  })
+  c.addEventListener("click", function(){
+    console.log("casdad");
+    o.style.zIndex = "-3";
+    o.style.display="none";
+  })
+ 
+}
+searchedoutput();
 addtocart();
 search();
 photos();
